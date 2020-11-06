@@ -1,0 +1,14 @@
+Дана таблица employees всех сотрудников компании. Поля:
+full_name TEXT (PK),
+position TEXT,
+department TEXT.
+
+Напиши запрос, выводящий все отделы, в которых меньше 5 разработчиков (position = 'Software Developer').
+-------------------------------------------------------------------------------------------------------------------------------------------
+Решение (MySQL):
+
+SELECT department 
+FROM (
+SELECT department, SUM(CASE WHEN position = 'Software Developer' THEN 1 ELSE 0 END) AS kol FROM employees GROUP BY department HAVING kol < 5
+) 
+AS solution;
